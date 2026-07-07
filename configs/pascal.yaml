@@ -1,0 +1,30 @@
+# PixCon on Pascal VOC: UniMatch V2 base + clean-positive contrastive auxiliary.
+# Recipe matches UniMatch V2 exactly except for the added contrastive loss.
+
+dataset: pascal
+nclass: 21
+data_root: /content/data/pascal
+
+# Model
+backbone: dinov2_vitb14
+decoder_dim: 256
+proj_dim: 256
+
+# Training (crop must be divisible by 14: 518 = 37*14)
+crop_size: 518
+epochs: 60
+batch_size: 4         # effective 16 with 4-step grad accum where available
+backbone_lr: 5.0e-6
+decoder_lr: 2.0e-4
+weight_decay: 0.01
+
+# UniMatch V2 consistency
+conf_thresh: 0.95
+ema_decay_max: 0.996
+
+# PixCon
+pixcon_weight: 0.1
+pixcon_temp: 0.1
+pixcon_bank_size: 256
+pixcon_max_anchors: 1024
+pixcon_per_class: 64

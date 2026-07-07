@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+exp/
+runs/
+logs/
+*.pth
+*.pt
+events.out.tfevents.*
+data/cache/
+.DS_Store
+.idea/
+.vscode/
