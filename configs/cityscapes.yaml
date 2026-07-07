@@ -1,0 +1,30 @@
+# PixCon on Cityscapes: UniMatch V2 base + clean-positive contrastive auxiliary.
+# Mirrors the Pascal recipe; Cityscapes-specific fields per the paper table.
+
+dataset: cityscapes
+nclass: 19
+data_root: /home/eben/Storage/data/cs_hf_ds
+
+# Model
+backbone: dinov2_vitb14
+decoder_dim: 256
+proj_dim: 256
+
+# Training (crop divisible by 14: 686 = 49*14)
+crop_size: 686
+epochs: 120
+batch_size: 4         # effective 16 with grad accum
+backbone_lr: 5.0e-6
+decoder_lr: 2.0e-4
+weight_decay: 0.01
+
+# UniMatch V2 consistency
+conf_thresh: 0.95
+ema_decay_max: 0.996
+
+# PixCon
+pixcon_weight: 0.1
+pixcon_temp: 0.1
+pixcon_bank_size: 256
+pixcon_max_anchors: 1024
+pixcon_per_class: 64
